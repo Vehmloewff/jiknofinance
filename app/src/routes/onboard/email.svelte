@@ -1,9 +1,8 @@
 <script lang="ts">
 	import { onMount } from 'svelte'
-	import { controllers } from '../../api'
+	import { controllers, injectHeartbeat } from '../../api'
 
 	import Button from '../../components/Button.svelte'
-	import Center from '../../components/Center.svelte'
 	import PageView from '../../components/PageView.svelte'
 	import Text from '../../components/Text.svelte'
 
@@ -26,6 +25,9 @@
 		loading = true
 		try {
 			await controllers.authenticate.sendConfirmationEmail(email)
+
+			if (email === 'demo') injectHeartbeat()
+
 			go('onboard.waiting')
 		} catch (e) {
 			error = e.message
