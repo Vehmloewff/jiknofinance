@@ -6,7 +6,7 @@
 	import { online, user } from './api'
 	import App from './routes/app/mod.svelte'
 	import NoState from './no-state.svelte'
-	import Scaffold from './components/Scaffold.svelte'
+	import PageView from './components/PageView.svelte'
 
 	$: {
 		if ($user.isGuest) {
@@ -27,9 +27,9 @@
 	{:else if isSameRoute('app', $state)}
 		<App />
 	{:else}
-		<Scaffold>
+		<PageView>
 			<NoState />
-		</Scaffold>
+		</PageView>
 	{/if}
 
 	{#if !$online}

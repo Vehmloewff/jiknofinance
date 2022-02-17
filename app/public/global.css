@@ -6,7 +6,7 @@
 	--background3: #585859;
 	--background4: #9A9B98;
 
-	--action: #7D7A52;
+	--action: #908b5f;
 	--on-action: var(--foreground);
 
 	--danger: #ff3333;
@@ -15,6 +15,9 @@
 	--on-clear: var(--foreground);
 	--warn: orange;
 	--on-warn: var(--foreground);
+
+	--glass: #58585986;
+	--glass-blur: 20px;
 
 	color: var(--foreground);
 }
@@ -50,4 +53,12 @@ input {
 
 .align-center {
 	text-align: center;
+}
+
+.clickable {
+	cursor: pointer;
+	transition: opacity 100ms;
+}
+.clickable:active {
+	opacity: 0.7;
 }

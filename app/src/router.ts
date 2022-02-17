@@ -1,13 +1,13 @@
 import { writable } from 'svelte/store'
 
 export const state = writable('new-user')
-export const params = writable<Record<string, string>>({})
+export const params = writable<any>({})
 
-export function go(stateName: string, stateParams?: Record<string, string>) {
+export function go(stateName: string, stateParams?: any) {
 	state.set(stateName)
 
 	if (stateParams)
-		params.update((params: Record<string, string>) => {
+		params.update((params: any) => {
 			return { ...params, ...stateParams }
 		})
 }

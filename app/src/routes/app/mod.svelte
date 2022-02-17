@@ -1,10 +1,11 @@
 <script lang="ts">
 	import Icon from '../../components/Icon.svelte'
-	import Scaffold from '../../components/Scaffold.svelte'
-	import ScrollView from '../../components/ScrollView.svelte'
+	import PageView from '../../components/PageView.svelte'
 	import Text from '../../components/Text.svelte'
 	import NoState from '../../no-state.svelte'
 	import { go, isSameRoute, state } from '../../router'
+	import { safeAreaBottom } from '../../safe-area'
+	import Envelopes from './envelopes/mod.svelte'
 	import Home from './home/mod.svelte'
 
 	const pages = [
@@ -35,48 +36,41 @@
 	]
 </script>
 
-<Scaffold>
-	<ScrollView>
-		{#if isSameRoute('app.home', $state)}
-			<Home />
-		{:else}
-			<NoState />
-		{/if}
+{#if isSameRoute('app.home', $state)}
+	<Home />
+{:else if isSameRoute('app.envelopes', $state)}
+	<Envelopes />
+{:else}
+	<PageView>
+		<NoState />
+	</PageView>
+{/if}
 
-		<div class="tab-bar-space" />
-	</ScrollView>
-
-	<div class="tab-bar">
-		{#each pages as page}
-			<div
-				class="tab-button"
-				class:clickable={!isSameRoute(page.rootState, $state)}
-				class:active={isSameRoute(page.rootState, $state)}
-				on:click={() => {
-					if (!isSameRoute(page.rootState, $state)) go(page.state)
-				}}
-			>
-				<Icon name={page.icon} size={25} />
-				<Text content={page.name} style="sub-body" primary={isSameRoute(page.rootState, $state)} />
-			</div>
-		{/each}
-	</div>
-</Scaffold>
+<div class="tab-bar" style="bottom: {$safeAreaBottom + 16}px">
+	{#each pages as page}
+		<div
+			class="tab-button"
+			class:clickable={!isSameRoute(page.rootState, $state)}
+			class:active={isSameRoute(page.rootState, $state)}
+			on:click={() => {
+				if (!isSameRoute(page.rootState, $state)) go(page.state)
+			}}
+		>
+			<Icon name={page.icon} size={25} />
+			<Text content={page.name} style="sub-body" primary={isSameRoute(page.rootState, $state)} />
+		</div>
+	{/each}
+</div>
 
 <style>
-	.tab-bar-space {
-		height: 92px;
-	}
-
 	.tab-bar {
 		position: absolute;
 		right: 16px;
 		left: 16px;
-		bottom: 16px;
 		height: 60px;
-		background: rgba(255, 255, 255, 0.205);
-		backdrop-filter: blur(10px);
-		-webkit-backdrop-filter: blur(10px); /* support ios */
+		background: var(--glass);
+		backdrop-filter: blur(var(--glass-blur));
+		-webkit-backdrop-filter: blur(var(--glass-blur)); /* support ios */
 		border-radius: 15px;
 		display: flex;
 		justify-content: space-evenly;

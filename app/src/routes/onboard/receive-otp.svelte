@@ -6,7 +6,7 @@
 	import Button from '../../components/Button.svelte'
 	import Center from '../../components/Center.svelte'
 	import Loader from '../../components/Loader.svelte'
-	import Scaffold from '../../components/Scaffold.svelte'
+	import PageView from '../../components/PageView.svelte'
 	import Text from '../../components/Text.svelte'
 	import { go } from '../../router'
 
@@ -25,32 +25,23 @@
 	})
 </script>
 
-<Scaffold>
-	<Center>
-		<div class="content">
-			{#if error}
-				<Text content="Oops!" style="title" />
+<PageView center>
+	<div class="container">
+		{#if error}
+			<Text content="Oops!" style="title" />
 
-				<div class="spacer" />
+			<div class="spacer" />
 
-				<Text content={error} />
+			<Text content={error} />
 
-				<div class="spacer" />
-				<div class="spacer" />
+			<div class="spacer" />
+			<div class="spacer" />
 
-				<Button large onPressed={() => go('onboard.email')}>
-					<Text content="Back" />
-				</Button>
-			{:else}
-				<Loader size={30} />
-			{/if}
-		</div>
-	</Center>
-</Scaffold>
-
-<style>
-	.content {
-		padding: 16px;
-		text-align: center;
-	}
-</style>
+			<Button large onPressed={() => go('onboard.email')}>
+				<Text content="Back" />
+			</Button>
+		{:else}
+			<Loader />
+		{/if}
+	</div>
+</PageView>

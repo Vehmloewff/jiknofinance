@@ -4,7 +4,7 @@
 
 	import Button from '../../components/Button.svelte'
 	import Center from '../../components/Center.svelte'
-	import Scaffold from '../../components/Scaffold.svelte'
+	import PageView from '../../components/PageView.svelte'
 	import Text from '../../components/Text.svelte'
 
 	import { go } from '../../router'
@@ -37,43 +37,41 @@
 	})
 </script>
 
-<Scaffold>
-	<Center>
-		<form on:submit|preventDefault={submit}>
-			<Text content="Enter your email" style="title" />
+<PageView center>
+	<form on:submit|preventDefault={submit}>
+		<Text content="Enter your email" style="title" />
 
-			{#if error}
-				<div class="spacer" />
-
-				<div class="error">
-					<Text content={error} />
-				</div>
-			{/if}
-
+		{#if error}
 			<div class="spacer" />
 
-			<input type="email" bind:value={email} placeholder="johndoe@example.com" bind:this={inputEl} />
-
-			<div class="spacer" />
-
-			<div class="action">
-				<div class="action-item">
-					<Button fullWidth large onPressed={() => go('new-user')}>
-						<Text content="Back" style="large-body" />
-					</Button>
-				</div>
-
-				<div class="action-spacer" />
-
-				<div class="action-item">
-					<Button primary fullWidth large submit onPressed={emailIsValid(email) && !loading ? submit : null}>
-						<Text content="Next" style="large-body" />
-					</Button>
-				</div>
+			<div class="error">
+				<Text content={error} />
 			</div>
-		</form>
-	</Center>
-</Scaffold>
+		{/if}
+
+		<div class="spacer" />
+
+		<input type="email" bind:value={email} placeholder="johndoe@example.com" bind:this={inputEl} />
+
+		<div class="spacer" />
+
+		<div class="action">
+			<div class="action-item">
+				<Button fullWidth large onPressed={() => go('new-user')}>
+					<Text content="Back" style="large-body" />
+				</Button>
+			</div>
+
+			<div class="action-spacer" />
+
+			<div class="action-item">
+				<Button primary fullWidth large submit onPressed={emailIsValid(email) && !loading ? submit : null}>
+					<Text content="Next" style="large-body" />
+				</Button>
+			</div>
+		</div>
+	</form>
+</PageView>
 
 <style>
 	form {

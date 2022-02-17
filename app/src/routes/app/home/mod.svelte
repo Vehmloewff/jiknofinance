@@ -1,4 +1,6 @@
 <script>
+	import PageView from '../../../components/PageView.svelte'
+
 	import NoState from '../../../no-state.svelte'
 	import { isSameRoute, state } from '../../../router'
 	import Overview from './overview.svelte'
@@ -7,5 +9,7 @@
 {#if isSameRoute('app.home.overview', $state)}
 	<Overview />
 {:else}
-	<NoState />
+	<PageView>
+		<NoState />
+	</PageView>
 {/if}

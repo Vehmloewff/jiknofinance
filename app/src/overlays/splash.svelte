@@ -1,9 +1,6 @@
 <script lang="ts">
 	import { onDestroy } from 'svelte'
-
-	import Center from '../components/Center.svelte'
 	import Loader from '../components/Loader.svelte'
-	import Scaffold from '../components/Scaffold.svelte'
 	import Text from '../components/Text.svelte'
 
 	let showHelpMessage = false
@@ -13,21 +10,26 @@
 	onDestroy(() => clearTimeout(timeout))
 </script>
 
-<Scaffold outAnimation="fade">
-	<Center>
-		<div class="splash">
-			<Loader />
+<div class="splash">
+	<Loader />
 
-			<div class="help" class:visible={showHelpMessage}>
-				<Text content="We're having troubble connecting to the internet" style="sub-body" />
-			</div>
-		</div>
-	</Center>
-</Scaffold>
+	<div class="help" class:visible={showHelpMessage}>
+		<Text content="We're having troubble connecting to the internet" style="sub-body" />
+	</div>
+</div>
 
 <style>
 	.splash {
-		text-align: center;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		flex-direction: column;
+		position: fixed;
+		top: 0;
+		right: 0;
+		left: 0;
+		bottom: 0;
+		z-index: 10;
 	}
 
 	.help {
