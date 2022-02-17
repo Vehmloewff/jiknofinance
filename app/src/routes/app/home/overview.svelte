@@ -8,6 +8,7 @@
 	import ListItem from '../../../components/ListItem.svelte'
 	import Text from '../../../components/Text.svelte'
 	import { go } from '../../../router'
+	import Envelope from '../helpers/Envelope.svelte'
 
 	const unallocatedExpenses = controllers.user.$unallocatedExpenses
 	const pinnedEnvelopes = controllers.user.$pinnedEnvelopes
@@ -114,19 +115,21 @@
 	<div class="spacer" />
 	<div class="spacer" />
 
-	<Text content="Shortcuts" style="header" />
+	<Text content="Pinned Envelopes" style="header" />
 
 	<div class="spacer" />
 
 	{#if $pinnedEnvelopes.length}
 		<List>
-			<ListItem title="Envelopes" />
+			{#each $pinnedEnvelopes as envelope}
+				<Envelope {envelope} />
+			{/each}
 		</List>
 	{:else}
 		<div class="empty-block">
-			<Text content="🎉 You're all caught up!" />
+			<Text content="No Pinned Envelopes" />
 			<div class="spacer" />
-			<Text content="No unallocated expenses" style="sub-body" />
+			<Text content="You can pin any envelope by clicking the pin icon" style="sub-body" />
 		</div>
 	{/if}
 </div>
