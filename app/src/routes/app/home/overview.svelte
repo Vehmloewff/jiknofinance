@@ -1,0 +1,179 @@
+<script lang="ts">
+	import { onDestroy } from 'svelte'
+	import { controllers } from '../../../api'
+	import Center from '../../../components/Center.svelte'
+
+	import Icon from '../../../components/Icon.svelte'
+	import List from '../../../components/List.svelte'
+	import ListItem from '../../../components/ListItem.svelte'
+	import Text from '../../../components/Text.svelte'
+	import { go } from '../../../router'
+
+	const unallocatedExpenses = controllers.user.$unallocatedExpenses
+	const pinnedEnvelopes = controllers.user.$pinnedEnvelopes
+
+	let currentTimeInDay = timeInDay()
+
+	function timeInDay() {
+		const hours = new Date().getHours()
+
+		if (hours < 3 || hours > 22) return 'night'
+		if (hours >= 18) return 'evening'
+		if (hours >= 12) return 'afternoon'
+
+		return 'morning'
+	}
+
+	const interval = setInterval(() => (currentTimeInDay = timeInDay()), 1000 * 60)
+
+	onDestroy(() => clearInterval(interval))
+
+	const shortcuts = [
+		{
+			name: 'Trends',
+			icon: 'outline::chart-square-bar',
+			state: 'app.home.trends',
+		},
+		{
+			name: 'Transactions',
+			icon: 'outline::cash',
+			state: 'app.home.transactions',
+		},
+		{
+			name: 'Create',
+			icon: 'outline::plus',
+			state: 'app.create.expense',
+		},
+	]
+</script>
+
+<div class="container">
+	<div class="header">
+		<div class="greeting">
+			<Text content="Good {currentTimeInDay}!" style="title" />
+		</div>
+
+		<!-- No search feature yet... If we implement on on the server, uncomment the below line -->
+		<!-- <div class="icon" on:click={() => go('app.home.search')}>
+			<Icon name="outline::search" size={25} />
+		</div>
+
+		<div class="spacer-x" /> -->
+
+		<div class="icon" on:click={() => go('app.home.settings')}>
+			<Icon name="solid::cog" size={25} />
+		</div>
+	</div>
+
+	<div class="spacer" />
+	<div class="spacer" />
+
+	{#if $unallocatedExpenses.length}
+		<List>
+			{#each $unallocatedExpenses as transaction}
+				<ListItem
+					onSelect={() => console.log('TODO')}
+					title={transaction.title || 'no title'}
+					descreteTitle={!transaction.title}
+					description="Unallocated"
+					descreteDescription={true}
+					icon="solid::minus-sm"
+					iconDecoration="danger"
+					showArrow
+					arrowText="${transaction.amount}"
+				/>
+			{/each}
+		</List>
+	{:else}
+		<div class="empty-block">
+			<Text content="🎉 You're all caught up!" />
+			<div class="spacer" />
+			<Text content="No unallocated expenses" style="sub-body" />
+		</div>
+	{/if}
+
+	<div class="spacer" />
+	<div class="spacer" />
+
+	<Text content="Shortcuts" style="header" />
+
+	<div class="spacer" />
+
+	<div class="shortcuts">
+		{#each shortcuts as shortcut}
+			<div class="shortcut" on:click={() => go(shortcut.state)}>
+				<Icon name={shortcut.icon} size={35} decoration="action" />
+
+				<div class="tiny-spacer" />
+
+				<Text content={shortcut.name} style="sub-body" primary />
+			</div>
+		{/each}
+	</div>
+
+	<div class="spacer" />
+	<div class="spacer" />
+
+	<Text content="Shortcuts" style="header" />
+
+	<div class="spacer" />
+
+	{#if $pinnedEnvelopes.length}
+		<List>
+			<ListItem title="Envelopes" />
+		</List>
+	{:else}
+		<div class="empty-block">
+			<Text content="🎉 You're all caught up!" />
+			<div class="spacer" />
+			<Text content="No unallocated expenses" style="sub-body" />
+		</div>
+	{/if}
+</div>
+
+<style>
+	.header {
+		display: flex;
+	}
+
+	.greeting {
+		flex-grow: 1;
+		opacity: 0.3;
+	}
+
+	.header .icon {
+		cursor: pointer;
+	}
+
+	.empty-block {
+		border-radius: 10px;
+		background: var(--background2);
+		height: 100px;
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+	}
+
+	.shortcuts {
+		display: flex;
+		justify-content: space-between;
+	}
+	.shortcut {
+		width: 100px;
+		height: 100px;
+		background: var(--background1);
+		border-radius: 10px;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+		transition: opacity 100ms;
+	}
+	.shortcut:active {
+		opacity: 0.8;
+	}
+	.tiny-spacer {
+		height: 5px;
+	}
+</style>

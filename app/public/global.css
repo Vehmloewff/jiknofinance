@@ -1,0 +1,53 @@
+:root {
+	--foreground: #F2F2F2;
+	--background: #0B0D11;
+	--background1: #1B1E22;
+	--background2: #26292D;
+	--background3: #585859;
+	--background4: #9A9B98;
+
+	--action: #7D7A52;
+	--on-action: var(--foreground);
+
+	--danger: #ff3333;
+	--on-danger: var(--foreground)
+	--clear: green;
+	--on-clear: var(--foreground);
+	--warn: orange;
+	--on-warn: var(--foreground);
+
+	color: var(--foreground);
+}
+
+* {
+	user-select: none;
+	-webkit-user-select: none;
+	flex-shrink: 0;
+
+	/* Disable the gray/blue highlight that mobile devices display on tap */
+	-webkit-tap-highlight-color: rgba(0,0,0,0);
+
+	/** Disable viewport zooming on ios */
+	touch-action: pan-y;
+}
+
+input {
+	user-select: auto;
+	-webkit-user-select: auto;
+}
+
+.spacer {
+	height: 20px;
+}
+
+.spacer-x {
+	width: 20px;
+}
+
+.container {
+	padding: 16px;
+}
+
+.align-center {
+	text-align: center;
+}
