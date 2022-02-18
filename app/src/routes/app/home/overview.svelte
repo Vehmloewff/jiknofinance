@@ -1,8 +1,6 @@
 <script lang="ts">
 	import { onDestroy } from 'svelte'
 	import { controllers } from '../../../api'
-	import Center from '../../../components/Center.svelte'
-
 	import Icon from '../../../components/Icon.svelte'
 	import List from '../../../components/List.svelte'
 	import ListItem from '../../../components/ListItem.svelte'
@@ -10,7 +8,7 @@
 	import Text from '../../../components/Text.svelte'
 	import { go, pushOverlay } from '../../../router'
 	import { display } from '../../../services/money'
-	import Envelope from '../helpers/Envelope.svelte'
+	import AccountPreview from '../helpers/AccountPreview.svelte'
 
 	const unallocatedExpenses = controllers.user.$unallocatedExpenses
 	const pinnedEnvelopes = controllers.user.$pinnedEnvelopes
@@ -119,7 +117,7 @@
 		{#if $pinnedEnvelopes.length}
 			<List>
 				{#each $pinnedEnvelopes as envelope}
-					<Envelope {envelope} />
+					<AccountPreview account={envelope} isEnvelope={true} />
 				{/each}
 			</List>
 		{:else}

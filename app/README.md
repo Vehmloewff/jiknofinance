@@ -12,4 +12,4 @@
 - Envelope and location icons and color
 - Add Envelope
 - Add Location
-- 
+- Transfer support in transaction overlay

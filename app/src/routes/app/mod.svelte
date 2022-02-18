@@ -3,11 +3,10 @@
 	import PageView from '../../components/PageView.svelte'
 	import Text from '../../components/Text.svelte'
 	import NoState from '../../no-state.svelte'
-	import { go, isSameRoute, state } from '../../router'
+	import { go, isSameRoute, params, state } from '../../router'
 	import { safeAreaBottom } from '../../safe-area'
 	import { glassBackground } from '../../services/glass-background'
-	import Envelopes from './envelopes/mod.svelte'
-	import Locations from './locations/mod.svelte'
+	import Accounts from './accounts/mod.svelte'
 	import Home from './home/mod.svelte'
 
 	const pages = [
@@ -19,14 +18,16 @@
 		},
 		{
 			name: 'Envelopes',
-			rootState: 'app.envelopes',
-			state: 'app.envelopes.overview',
+			rootState: 'app.accounts',
+			state: 'app.accounts.overview',
+			params: { isEnvelope: true },
 			icon: 'solid::mail',
 		},
 		{
 			name: 'Locations',
-			rootState: 'app.locations',
-			state: 'app.locations.overview',
+			rootState: 'app.accounts',
+			state: 'app.accounts.overview',
+			params: { isEnvelope: false },
 			icon: 'solid::credit-card',
 		},
 		{
@@ -36,14 +37,20 @@
 			icon: 'solid::plus-circle',
 		},
 	]
+
+	function isActive(item: typeof pages[0], state: string, params: any) {
+		if (!isSameRoute(item.rootState, state)) return false
+
+		return params.isEnvelope === item.params?.isEnvelope
+	}
 </script>
 
 {#if isSameRoute('app.home', $state)}
 	<Home />
-{:else if isSameRoute('app.envelopes', $state)}
-	<Envelopes />
-{:else if isSameRoute('app.locations', $state)}
-	<Locations />
+{:else if isSameRoute('app.accounts', $state)}
+	<Accounts />
+	<!-- {:else if isSameRoute('app.locations', $state)}
+	<Locations /> -->
 {:else}
 	<PageView>
 		<NoState />
@@ -54,14 +61,14 @@
 	{#each pages as page}
 		<div
 			class="tab-button"
-			class:clickable={!isSameRoute(page.rootState, $state)}
-			class:active={isSameRoute(page.rootState, $state)}
+			class:clickable={!isActive(page, $state, $params)}
+			class:active={isActive(page, $state, $params)}
 			on:click={() => {
-				if (!isSameRoute(page.rootState, $state)) go(page.state)
+				if (!isActive(page, $state, $params)) go(page.state, page.params)
 			}}
 		>
 			<Icon name={page.icon} size={25} />
-			<Text content={page.name} style="sub-body" primary={isSameRoute(page.rootState, $state)} />
+			<Text content={page.name} style="sub-body" primary={isActive(page, $state, $params)} />
 		</div>
 	{/each}
 </div>

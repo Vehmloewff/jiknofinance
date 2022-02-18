@@ -9,7 +9,7 @@
 
 	export let title: string | null = null
 	export let trailingIcon: { decoration?: Decoration; onSelection: () => void; name: string } | null = null
-	export let backTo: { state: string; name: string } | null = null
+	export let backTo: { state: string; params?: any; name: string } | null = null
 	export let allowScroll = false
 	export let showTitleAfter = -1
 	export let discardTopSpace = false
@@ -61,7 +61,7 @@
 			style="padding-top: {$safeAreaTop}px"
 		>
 			{#if backTo}
-				<div class="back-to clickable" on:click={() => go(backTo.state)} style="top: {$safeAreaTop + 16}px">
+				<div class="back-to clickable" on:click={() => go(backTo.state, backTo.params)} style="top: {$safeAreaTop + 16}px">
 					<Icon name="outlined::chevron-left" decoration="action" />
 					<Text content={backTo.name} primary />
 				</div>

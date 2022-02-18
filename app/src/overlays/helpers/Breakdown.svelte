@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { controllers } from '../../api'
 	import Text from '../../components/Text.svelte'
-	import { displayTitle } from '../../routes/app/helpers/envelope-utils'
+	import { accountDisplayTitle } from '../../routes/app/helpers/utils'
 	import { display } from '../../services/money'
 
 	export let breakdown: { id: string; amount: number }
@@ -15,7 +15,7 @@
 		{#await controllers.user.getAccountName(breakdown.id)}
 			<Text content="..." />
 		{:then name}
-			<Text content={displayTitle(name)} />
+			<Text content={accountDisplayTitle(name)} />
 		{:catch error}
 			<Text content={error.message} style="sub-body" />
 		{/await}
