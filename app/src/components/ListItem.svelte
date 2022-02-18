@@ -13,8 +13,8 @@
 	export let title: string
 	export let description: string | null = null
 
-	export let descreteTitle: boolean = false
-	export let descreteDescription: boolean = false
+	export let discreetTitle: boolean = false
+	export let discreetDescription: boolean = false
 
 	export let arrowText: string | null = null
 	export let showArrow: boolean = false
@@ -38,12 +38,12 @@
 	<div class="little-space" />
 
 	<div class="text">
-		<div class="title" class:descrete={descreteTitle}>
+		<div class="title" class:discreet={discreetTitle}>
 			<Text content={title} style="large-body" nowrap />
 		</div>
 
 		{#if description}
-			<div class="description" class:descrete={descreteDescription}>
+			<div class="description" class:discreet={discreetDescription}>
 				<Text content={description} style="sub-body" nowrap />
 			</div>
 		{/if}
@@ -108,7 +108,7 @@
 		min-width: 0;
 		flex-shrink: 1;
 	}
-	.descrete {
+	.discreet {
 		opacity: 0.5;
 		font-style: italic;
 	}

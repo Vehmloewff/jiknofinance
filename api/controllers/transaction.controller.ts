@@ -36,6 +36,16 @@ export async function getLatestTransactions(
 	return joinedTransactions.sort((a, b) => a.transaction.date - b.transaction.date).slice(0, params.length)
 }
 
+export async function getTransaction(context: Context, id: string): Promise<TransferTransaction | FluctuateTransaction> {
+	const user = await getRealUser(context)
+
+	const transaction = (await TransferTransaction.get(id)) || (await FluctuateTransaction.get(id))
+	if (!transaction) throw new UserError(`Transaction ${id} does not exist`)
+
+	if (transaction.userId !== user.userId) throw new UserError(`You do not own transaction ${id}`)
+	return transaction
+}
+
 export async function createFluctuateTransaction(
 	context: Context,
 	params: {

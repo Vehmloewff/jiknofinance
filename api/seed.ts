@@ -148,6 +148,10 @@ export async function seed() {
 		name: 'Bank Account',
 	}
 
+	const locations = [cashStash, wallet, bankAccount]
+
+	for (const location of locations) await Location.insert(location)
+
 	//
 	// Allocated Transactions
 	//

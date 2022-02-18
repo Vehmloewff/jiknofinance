@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { onDestroy } from 'svelte'
-	import Loader from '../components/Loader.svelte'
-	import Text from '../components/Text.svelte'
+	import Loader from './components/Loader.svelte'
+	import Text from './components/Text.svelte'
 
 	let showHelpMessage = false
 

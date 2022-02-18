@@ -8,7 +8,7 @@
 	export let envelope: Envelope
 </script>
 
-<PageView backTo={{ name: displayTitle(envelope.name), state: 'app.envelopes.envelope' }} title="{displayTitle(envelope.name)} Settings">
+<PageView backTo={{ name: 'Back', state: 'app.envelopes.envelope' }} title="{displayTitle(envelope.name)} Settings">
 	<Center>
 		<Text content="Still working on it!" />
 	</Center>

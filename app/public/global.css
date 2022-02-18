@@ -11,7 +11,7 @@
 
 	--danger: #ff3333;
 	--on-danger: var(--foreground);
-	--clear: rgb(3, 185, 3);
+	--clear: rgb(3, 177, 3);
 	--on-clear: var(--foreground);
 	--warn: orange;
 	--on-warn: var(--foreground);

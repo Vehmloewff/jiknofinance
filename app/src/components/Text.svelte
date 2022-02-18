@@ -15,6 +15,7 @@
 	export let editable = false
 	export let multiline = false
 	export let obscureText = false
+	export let standout = false
 
 	const dispatch = createEventDispatcher()
 
@@ -57,6 +58,7 @@
 	class:primary
 	class:underline
 	class:nowrap
+	class:standout
 	class:strikethrough={strikeThrough}
 	class:stylelarge={style === 'large'}
 	class:stylemedium={style === 'medium'}
@@ -163,5 +165,9 @@
 		white-space: nowrap;
 		overflow: hidden;
 		text-overflow: ellipsis;
+	}
+
+	.standout {
+		font-weight: bold;
 	}
 </style>

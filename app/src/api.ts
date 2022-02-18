@@ -364,6 +364,14 @@ export const controllers = {
 				returnType: 'json',
 			})
 		},
+		async getTransaction(params: string): Promise<TransferTransaction | FluctuateTransaction> {
+			return await conventionalMethod({
+				controllerName: 'transaction',
+				methodName: 'getTransaction',
+				params: params,
+				returnType: 'json',
+			})
+		},
 		async createFluctuateTransaction(params: {
 					type: 'income' | 'expense'
 					title: string | null
@@ -484,6 +492,14 @@ export const controllers = {
 				controllerName: 'user',
 				methodName: 'getDefaultInputType',
 				params: null,
+				returnType: 'json',
+			})
+		},
+		async getAccountName(params: string): Promise<string> {
+			return await conventionalMethod({
+				controllerName: 'user',
+				methodName: 'getAccountName',
+				params: params,
 				returnType: 'json',
 			})
 		},

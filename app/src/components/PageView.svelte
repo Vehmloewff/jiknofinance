@@ -2,6 +2,7 @@
 	import { fade } from 'svelte/transition'
 	import { go, isSameRoute, state } from '../router'
 	import { safeAreaBottom, safeAreaTop } from '../safe-area'
+	import { glassBackground } from '../services/glass-background'
 	import Icon from './Icon.svelte'
 	import Text from './Text.svelte'
 	import type { Decoration } from './types'
@@ -10,7 +11,7 @@
 	export let trailingIcon: { decoration?: Decoration; onSelection: () => void; name: string } | null = null
 	export let backTo: { state: string; name: string } | null = null
 	export let allowScroll = false
-	export let showTitleAfter = 0
+	export let showTitleAfter = -1
 	export let discardTopSpace = false
 	export let center = false
 
@@ -19,7 +20,7 @@
 	}
 
 	let showHeader = false
-	let showTitle = showTitleAfter === 0
+	let showTitle = showTitleAfter === -1
 
 	function scroll(e: Event & { currentTarget: HTMLDivElement }) {
 		const el = e.currentTarget
@@ -54,7 +55,11 @@
 	</div>
 
 	{#if title}
-		<div class="header container" class:obvious={showHeader} style="padding-top: {$safeAreaTop}px">
+		<div
+			class="header container"
+			use:glassBackground={{ display: showHeader, showBottomLine: true }}
+			style="padding-top: {$safeAreaTop}px"
+		>
 			{#if backTo}
 				<div class="back-to clickable" on:click={() => go(backTo.state)} style="top: {$safeAreaTop + 16}px">
 					<Icon name="outlined::chevron-left" decoration="action" />
@@ -117,17 +122,6 @@
 		text-align: center;
 		height: 55px;
 		padding: 0 16px;
-		background: rgba(0, 0, 0, 0);
-		backdrop-filter: blur(0px);
-		-webkit-backdrop-filter: blur(0px); /* support ios */
-		border-bottom: 1px solid rgba(0, 0, 0, 0);
-		transition: background 100ms, border 100ms, backdrop-filter 100ms;
-	}
-	.obvious {
-		background: var(--glass);
-		backdrop-filter: blur(var(--glass-blur));
-		-webkit-backdrop-filter: blur(var(--glass-blur)); /* support ios */
-		border-bottom: 1px solid var(--background);
 	}
 
 	.back-to {

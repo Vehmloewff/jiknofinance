@@ -1,4 +1,4 @@
-import { IncomeType, UserInfo, FluctuateTransaction, Envelope } from '../db.cluster.ts'
+import { IncomeType, UserInfo, FluctuateTransaction, Envelope, Location } from '../db.cluster.ts'
 import { Context, Connection, pluralConnection, PluralConnection, singularConnection, SingularConnection, UserError } from '../deps.ts'
 import { sureGet, getRealUser, makeIncomeTypeId } from '../utils.ts'
 
@@ -152,6 +152,16 @@ export async function getDefaultInputType(context: Context): Promise<string | nu
 	}
 
 	return null
+}
+
+export async function getAccountName(context: Context, id: string): Promise<string> {
+	await getRealUser(context)
+
+	const account = (await Envelope.get(id)) || (await Location.get(id))
+
+	if (!account) throw new UserError('Account was not found')
+
+	return account.name
 }
 
 async function ensureUserOwnsInputType(info: string | UserInfo, inputTypeId: string) {

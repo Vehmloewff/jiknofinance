@@ -8,7 +8,7 @@
 	import ListItem from '../../../components/ListItem.svelte'
 	import PageView from '../../../components/PageView.svelte'
 	import Text from '../../../components/Text.svelte'
-	import { go } from '../../../router'
+	import { go, pushOverlay } from '../../../router'
 	import { display } from '../../../services/money'
 	import Envelope from '../helpers/Envelope.svelte'
 
@@ -70,11 +70,11 @@
 			<List>
 				{#each $unallocatedExpenses as transaction}
 					<ListItem
-						onSelect={() => console.log('TODO')}
+						onSelect={() => pushOverlay('transaction', transaction.id)}
 						title={transaction.title || 'no title'}
-						descreteTitle={!transaction.title}
+						discreetTitle={!transaction.title}
 						description="Unallocated"
-						descreteDescription={true}
+						discreetDescription={true}
 						icon="solid::minus-sm"
 						iconDecoration="danger"
 						showArrow

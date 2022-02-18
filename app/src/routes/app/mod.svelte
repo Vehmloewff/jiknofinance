@@ -5,6 +5,7 @@
 	import NoState from '../../no-state.svelte'
 	import { go, isSameRoute, state } from '../../router'
 	import { safeAreaBottom } from '../../safe-area'
+	import { glassBackground } from '../../services/glass-background'
 	import Envelopes from './envelopes/mod.svelte'
 	import Home from './home/mod.svelte'
 
@@ -46,7 +47,7 @@
 	</PageView>
 {/if}
 
-<div class="tab-bar" style="bottom: {$safeAreaBottom + 16}px">
+<div class="tab-bar" style="bottom: {$safeAreaBottom + 16}px" use:glassBackground={{ display: true }}>
 	{#each pages as page}
 		<div
 			class="tab-button"
@@ -68,9 +69,6 @@
 		right: 16px;
 		left: 16px;
 		height: 60px;
-		background: var(--glass);
-		backdrop-filter: blur(var(--glass-blur));
-		-webkit-backdrop-filter: blur(var(--glass-blur)); /* support ios */
 		border-radius: 15px;
 		display: flex;
 		justify-content: space-evenly;

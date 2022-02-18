@@ -5,7 +5,7 @@
 	import Loader from '../../../components/Loader.svelte'
 	import PageView from '../../../components/PageView.svelte'
 	import Text from '../../../components/Text.svelte'
-	import { go, isSameRoute, state } from '../../../router'
+	import { go, isSameRoute, pushOverlay, state } from '../../../router'
 	import { safeAreaTop } from '../../../safe-area'
 	import { display } from '../../../services/money'
 	import { getDecoration, getIcon, getLatestTransactions } from '../../../services/transactions'
@@ -47,14 +47,14 @@
 						{#each transactions as transaction}
 							<ListItem
 								title={transaction.title || 'no title'}
-								descreteTitle={!transaction.title}
-								onSelect={() => go('app.home.transactions.transaction', transaction.id)}
+								discreetTitle={!transaction.title}
+								onSelect={() => pushOverlay('transaction', transaction.id)}
 								showArrow
 								arrowText="-{display(transaction.amount)}"
 								icon={getIcon(transaction.type)}
 								iconDecoration={getDecoration(transaction.type)}
 								description="Balance: {display(transaction.currentBalance)}"
-								descreteDescription
+								discreetDescription
 							/>
 						{/each}
 					</List>
