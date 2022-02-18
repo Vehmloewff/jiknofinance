@@ -62,3 +62,25 @@ input {
 .clickable:active {
 	opacity: 0.7;
 }
+
+input,
+.look-like-input {
+	border: 1px solid var(--background2);
+	background: none;
+	font-size: 16px;
+	padding: 16px 32px;
+	color: var(--foreground);
+	border-radius: 8px;
+	outline: none;
+}
+
+input:focus:not(.bare),
+.look-like-input:focus-within {
+	border: 1px solid var(--action);
+}
+
+input.bare {
+	border: none;
+	padding: 0;
+	border-radius: 0;
+}

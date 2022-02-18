@@ -80,19 +80,6 @@
 		padding: 16px;
 	}
 
-	input {
-		border: 1px solid var(--background2);
-		background: none;
-		font-size: 16px;
-		padding: 16px 32px;
-		color: var(--foreground);
-		border-radius: 8px;
-		outline: none;
-	}
-	input:focus {
-		border: 1px solid var(--action);
-	}
-
 	.error {
 		background: var(--danger);
 		padding: 16px;

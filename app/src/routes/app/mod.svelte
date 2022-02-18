@@ -8,6 +8,7 @@
 	import { glassBackground } from '../../services/glass-background'
 	import Accounts from './accounts/mod.svelte'
 	import Home from './home/mod.svelte'
+	import Create from './create/mod.svelte'
 
 	const pages = [
 		{
@@ -49,8 +50,8 @@
 	<Home />
 {:else if isSameRoute('app.accounts', $state)}
 	<Accounts />
-	<!-- {:else if isSameRoute('app.locations', $state)}
-	<Locations /> -->
+{:else if isSameRoute('app.create', $state)}
+	<Create />
 {:else}
 	<PageView>
 		<NoState />

@@ -105,8 +105,8 @@
 		display: flex;
 		flex-direction: column;
 		padding: 10px 0;
-		min-width: 0;
 		flex-shrink: 1;
+		min-width: 0;
 	}
 	.discreet {
 		opacity: 0.5;

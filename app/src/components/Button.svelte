@@ -48,7 +48,7 @@
 	}
 	button {
 		padding: 5px 10px;
-		border-radius: 4px;
+		border-radius: 8px;
 		cursor: pointer;
 		background: var(--background2);
 		border: none;
