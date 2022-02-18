@@ -8,7 +8,7 @@
 	import Text from '../components/Text.svelte'
 	import { display } from '../services/money'
 	import { calculateTimeAgo } from '../services/time-ago'
-	import Breakdown from './helpers/Breakdown.svelte'
+	import Breakdown from './.helpers/Breakdown.svelte'
 
 	export let id: string
 

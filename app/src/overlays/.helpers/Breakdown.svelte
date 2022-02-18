@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { controllers } from '../../api'
 	import Text from '../../components/Text.svelte'
-	import { accountDisplayTitle } from '../../routes/app/helpers/utils'
+	import { accountDisplayTitle } from '../../routes/app/.helpers/utils'
 	import { display } from '../../services/money'
 
 	export let breakdown: { id: string; amount: number }

@@ -9,8 +9,8 @@
 	import { safeAreaTop } from '../../../safe-area'
 	import { display } from '../../../services/money'
 	import { getDecoration, getIcon, getLatestTransactions } from '../../../services/transactions'
-	import { accountDisplayTitle } from '../helpers/utils'
-	import { makeBackground, makeCoverBackground } from '../helpers/style'
+	import { accountDisplayTitle } from '../.helpers/utils'
+	import { makeBackground, makeCoverBackground } from '../.helpers/style'
 
 	export let account: Location | Envelope
 	export let isEnvelope: boolean

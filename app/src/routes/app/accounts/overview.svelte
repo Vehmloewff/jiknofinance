@@ -4,8 +4,8 @@
 	import List from '../../../components/List.svelte'
 	import PageView from '../../../components/PageView.svelte'
 	import Text from '../../../components/Text.svelte'
-	import { accountsSorter } from '../helpers/utils'
-	import AccountPreview from '../helpers/AccountPreview.svelte'
+	import { accountsSorter } from '../.helpers/utils'
+	import AccountPreview from '../.helpers/AccountPreview.svelte'
 
 	export let isEnvelope: boolean
 

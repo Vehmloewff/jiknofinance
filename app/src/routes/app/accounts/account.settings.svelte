@@ -3,7 +3,7 @@
 	import Center from '../../../components/Center.svelte'
 	import PageView from '../../../components/PageView.svelte'
 	import Text from '../../../components/Text.svelte'
-	import { accountDisplayTitle } from '../helpers/utils'
+	import { accountDisplayTitle } from '../.helpers/utils'
 
 	export let account: Envelope | Location
 	export let isEnvelope: boolean

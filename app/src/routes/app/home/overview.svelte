@@ -8,7 +8,7 @@
 	import Text from '../../../components/Text.svelte'
 	import { go, pushOverlay } from '../../../router'
 	import { display } from '../../../services/money'
-	import AccountPreview from '../helpers/AccountPreview.svelte'
+	import AccountPreview from '../.helpers/AccountPreview.svelte'
 
 	const unallocatedExpenses = controllers.user.$unallocatedExpenses
 	const pinnedEnvelopes = controllers.user.$pinnedEnvelopes
