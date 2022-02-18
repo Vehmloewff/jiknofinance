@@ -7,7 +7,8 @@
 - Create
 - Settings
 - Envelope Settings
-- Locations
+- Location Settings
+- [x] Locations
 - Envelope and location icons and color
 - Add Envelope
 - Add Location

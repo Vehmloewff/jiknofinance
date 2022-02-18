@@ -274,7 +274,7 @@ export async function seed() {
 		email: 'demo',
 		envelopeIds: envelopes.map(envelope => envelope.id),
 		incomeTypeIds: [],
-		locationIds: [],
+		locationIds: locations.map(location => location.id),
 		pinnedEnvelopeIds: [groceries.id, jakesSpending.id, sarahSpending.id],
 		unallocatedExpenseTransactions: unallocatedExpensesIds,
 	}

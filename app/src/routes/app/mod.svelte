@@ -7,6 +7,7 @@
 	import { safeAreaBottom } from '../../safe-area'
 	import { glassBackground } from '../../services/glass-background'
 	import Envelopes from './envelopes/mod.svelte'
+	import Locations from './locations/mod.svelte'
 	import Home from './home/mod.svelte'
 
 	const pages = [
@@ -41,6 +42,8 @@
 	<Home />
 {:else if isSameRoute('app.envelopes', $state)}
 	<Envelopes />
+{:else if isSameRoute('app.locations', $state)}
+	<Locations />
 {:else}
 	<PageView>
 		<NoState />
