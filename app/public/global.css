@@ -1,17 +1,17 @@
 :root {
-	--foreground: #F2F2F2;
-	--background: #0B0D11;
-	--background1: #1B1E22;
-	--background2: #26292D;
+	--foreground: #f2f2f2;
+	--background: #0b0d11;
+	--background1: #1b1e22;
+	--background2: #26292d;
 	--background3: #585859;
-	--background4: #9A9B98;
+	--background4: #9a9b98;
 
 	--action: #908b5f;
 	--on-action: var(--foreground);
 
 	--danger: #ff3333;
-	--on-danger: var(--foreground)
-	--clear: green;
+	--on-danger: var(--foreground);
+	--clear: rgb(3, 185, 3);
 	--on-clear: var(--foreground);
 	--warn: orange;
 	--on-warn: var(--foreground);
@@ -28,7 +28,7 @@
 	flex-shrink: 0;
 
 	/* Disable the gray/blue highlight that mobile devices display on tap */
-	-webkit-tap-highlight-color: rgba(0,0,0,0);
+	-webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 
 	/** Disable viewport zooming on ios */
 	touch-action: pan-y;

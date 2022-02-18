@@ -2,6 +2,7 @@
 	import type { Envelope } from '../../../api'
 	import ListItem from '../../../components/ListItem.svelte'
 	import { go } from '../../../router'
+	import { display } from '../../../services/money'
 	import { displayTitle } from './envelope-utils'
 
 	export let envelope: Envelope
@@ -10,6 +11,6 @@
 <ListItem
 	title={displayTitle(envelope.name)}
 	showArrow
-	arrowText="${envelope.balance}"
+	arrowText={display(envelope.balance)}
 	onSelect={() => go('app.envelopes.envelope', { envelope })}
 />

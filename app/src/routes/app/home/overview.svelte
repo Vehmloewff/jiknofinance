@@ -9,6 +9,7 @@
 	import PageView from '../../../components/PageView.svelte'
 	import Text from '../../../components/Text.svelte'
 	import { go } from '../../../router'
+	import { display } from '../../../services/money'
 	import Envelope from '../helpers/Envelope.svelte'
 
 	const unallocatedExpenses = controllers.user.$unallocatedExpenses
@@ -77,7 +78,7 @@
 						icon="solid::minus-sm"
 						iconDecoration="danger"
 						showArrow
-						arrowText="${transaction.amount}"
+						arrowText={display(transaction.amount)}
 					/>
 				{/each}
 			</List>

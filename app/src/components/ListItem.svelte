@@ -54,14 +54,18 @@
 			<div class="little-space" />
 
 			{#if arrowText}
-				<Text content={arrowText} />
+				<div class="arrow-text">
+					<Text content={arrowText} />
+				</div>
 			{/if}
 
-			<Icon name="outlined::chevron-right" />
+			<div class="icon">
+				<Icon name="outlined::chevron-right" size={20} />
+			</div>
 		</div>
+	{:else}
+		<div class="little-space" />
 	{/if}
-
-	<div class="little-space" />
 </div>
 
 <style>
@@ -108,10 +112,20 @@
 		opacity: 0.5;
 		font-style: italic;
 	}
+	.description {
+		padding-top: 5px;
+	}
 
 	.arrow {
 		display: flex;
 		align-items: center;
+		opacity: 0.5;
+	}
+	.arrow-text {
+		padding-right: 8px;
+	}
+	.icon {
+		padding-right: 10px;
 		opacity: 0.5;
 	}
 </style>
