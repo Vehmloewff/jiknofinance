@@ -65,6 +65,24 @@ export async function removeLocation(context: Context, id: string) {
 	await Location.remove(id)
 }
 
+export async function getDefaultExpenseLocation(context: Context): Promise<string | null> {
+	const user = await getRealUser(context)
+
+	const { locationIds } = await sureGet(UserInfo, user.userId)
+
+	const locations = await Promise.all(
+		locationIds.map(async locationId => {
+			return await sureGet(Location, locationId)
+		})
+	)
+
+	for (const location of locations) {
+		if (location.isDefaultExpenseLocation) return location.id
+	}
+
+	return null
+}
+
 async function ensureUserOwnsLocation(userId: string, locationId: string) {
 	const userInfo = await sureGet(UserInfo, userId)
 

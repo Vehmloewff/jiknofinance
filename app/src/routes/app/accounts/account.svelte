@@ -5,12 +5,13 @@
 	import Loader from '../../../components/Loader.svelte'
 	import PageView from '../../../components/PageView.svelte'
 	import Text from '../../../components/Text.svelte'
-	import { go, params, pushOverlay } from '../../../router'
+	import { go, params } from '../../../router'
 	import { safeAreaTop } from '../../../safe-area'
 	import { display } from '../../../services/money'
 	import { getDecoration, getIcon, getLatestTransactions } from '../../../services/transactions'
 	import { accountDisplayTitle } from '../.helpers/utils'
 	import { makeBackground, makeCoverBackground } from '../.helpers/style'
+	import { transactionOverlay } from '../../../overlays/mod'
 
 	export let account: Location | Envelope
 	export let isEnvelope: boolean
@@ -52,7 +53,7 @@
 						<ListItem
 							title={transaction.title || 'no title'}
 							discreetTitle={!transaction.title}
-							onSelect={() => pushOverlay('transaction', transaction.id)}
+							onSelect={() => transactionOverlay.run({ id: transaction.id })}
 							showArrow
 							arrowText="-{display(transaction.amount)}"
 							icon={getIcon(transaction.type)}

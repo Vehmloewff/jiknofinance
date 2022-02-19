@@ -567,6 +567,14 @@ export const controllers = {
 				returnType: 'void',
 			})
 		},
+		async getDefaultExpenseLocation(): Promise<string | null> {
+			return await conventionalMethod({
+				controllerName: 'locations',
+				methodName: 'getDefaultExpenseLocation',
+				params: null,
+				returnType: 'json',
+			})
+		},
 	},
 }
 

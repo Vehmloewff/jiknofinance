@@ -55,12 +55,17 @@ input {
 	text-align: center;
 }
 
-.clickable {
+.clickable:not(.disabled) {
 	cursor: pointer;
 	transition: opacity 100ms;
 }
-.clickable:active {
+.clickable:not(.disabled):active {
 	opacity: 0.7;
+}
+.clickable.disabled {
+	cursor: not-allowed;
+	opacity: 0.5;
+	filter: grayscale(1);
 }
 
 input,

@@ -1,13 +1,17 @@
 <script lang="ts">
 	import { fly } from 'svelte/transition'
-	import { popOverlay } from '../router'
 	import { safeAreaBottom, safeAreaTop } from '../safe-area'
 	import { glassBackground } from '../services/glass-background'
 	import Text from './Text.svelte'
 
 	export let backButtonText = 'Done'
+	export let onBackButtonPressed: () => void = () => {}
+
 	export let actionButtonText: string | null = null
 	export let boldActionButton = false
+	export let actionButtonDisabled = false
+	export let onActionButtonPressed: () => void = () => {}
+
 	export let title: string | null = null
 	export let allowScroll = false
 
@@ -43,14 +47,20 @@
 			use:glassBackground={{ display: showBackground, showBottomLine: true }}
 			style="padding-top: {$safeAreaTop}px"
 		>
-			<div class="back clickable" on:click={() => popOverlay()}>
+			<div class="back clickable" on:click={() => onBackButtonPressed()}>
 				<Text content={backButtonText} primary />
 			</div>
 
 			<Text content={title} style="large-body" />
 
 			{#if actionButtonText}
-				<div class="action clickable">
+				<div
+					class="action clickable"
+					class:disabled={actionButtonDisabled}
+					on:click={() => {
+						if (!actionButtonDisabled) onActionButtonPressed()
+					}}
+				>
 					<Text content={actionButtonText} primary standout={boldActionButton} />
 				</div>
 			{/if}

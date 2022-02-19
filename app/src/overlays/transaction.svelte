@@ -9,8 +9,9 @@
 	import { display } from '../services/money'
 	import { calculateTimeAgo } from '../services/time-ago'
 	import Breakdown from './.helpers/Breakdown.svelte'
+	import { transactionOverlay } from './mod'
 
-	export let id: string
+	const { id } = transactionOverlay.getParams()
 
 	let timeAgoInterval = 0
 	const timeAgoIntervalDeclaration = setInterval(() => timeAgoInterval++, 5000)
@@ -31,7 +32,7 @@
 	}
 </script>
 
-<Overlay title="Transaction" allowScroll>
+<Overlay title="Transaction" allowScroll onBackButtonPressed={() => transactionOverlay.close(null)}>
 	{#await controllers.transaction.getTransaction(id)}
 		<Center>
 			<Loader />

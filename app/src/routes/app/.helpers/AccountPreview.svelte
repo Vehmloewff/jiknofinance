@@ -7,11 +7,7 @@
 
 	export let account: Envelope | Location
 	export let isEnvelope: boolean
+	export let onSelect = () => go(`app.accounts.account`, { account, isEnvelope, backTo: $state })
 </script>
 
-<ListItem
-	title={accountDisplayTitle(account.name)}
-	showArrow
-	arrowText={display(account.balance)}
-	onSelect={() => go(`app.accounts.account`, { account, isEnvelope, backTo: $state })}
-/>
+<ListItem title={accountDisplayTitle(account.name)} showArrow arrowText={display(account.balance)} {onSelect} />

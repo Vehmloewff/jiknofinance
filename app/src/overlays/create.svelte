@@ -1,17 +1,24 @@
 <script lang="ts">
+	import AccountPicker from '../.helpers/AccountPicker.svelte'
+	import { controllers } from '../api'
+
 	import Icon from '../components/Icon.svelte'
 	import Overlay from '../components/Overlay.svelte'
 	import Text from '../components/Text.svelte'
 	import { addCommas } from '../services/money'
+	import { createOverlay } from './mod'
 
 	let amountString = '000'
 	$: dollarsString = addCommas(amountString.slice(0, -2))
 	$: centsString = amountString.slice(-2)
 
-	$: amount = parseFloat(`${dollarsString}.${centsString}`)
-	$: invalid = amount === 0
+	let loading = false
+	$: invalid = amount === 0 || loading
 
 	let type: 'income' | 'expense' = 'expense'
+	$: amount = parseFloat(`${dollarsString}.${centsString}`)
+	let envelopeId: null | string = null
+	let locationId: null | string = null
 
 	function addZeros(value: string, max: number) {
 		if (value.length >= max) return value
@@ -32,8 +39,25 @@
 		amountString = addZeros(stripLeadingZeros(amountString).slice(0, -1), 3)
 	}
 
-	function save() {
-		console.log('save')
+	async function save() {
+		loading = true
+
+		try {
+			await controllers.transaction.createFluctuateTransaction({
+				amount,
+				date: Date.now(),
+				envelopeBreakdown: [],
+				locationBreakdown: [],
+				title: null,
+				type,
+			})
+		} catch (e) {
+			// TODO an elegant snackbar to display this error
+			alert(`Failed to create transaction: ${e.message}`)
+			console.error(e)
+		}
+
+		loading = false
 	}
 
 	const keyboardDef = [
@@ -60,7 +84,14 @@
 	]
 </script>
 
-<Overlay title="Create Transaction" backButtonText="Cancel" actionButtonText="Save" boldActionButton>
+<Overlay
+	title="Create Transaction"
+	backButtonText="Cancel"
+	actionButtonText="Save"
+	boldActionButton
+	actionButtonDisabled={invalid}
+	onBackButtonPressed={() => createOverlay.close(null)}
+>
 	<div class="create-container">
 		<div class="spacer" />
 
@@ -82,6 +113,16 @@
 		</div>
 
 		<div class="flex-gap" />
+
+		<div class="allocate">
+			<div class="account">
+				<AccountPicker isEnvelope={true} onPick={id => (envelopeId = id)} />
+			</div>
+			<div class="account-spacer" />
+			<div class="account">
+				<AccountPicker isEnvelope={false} onPick={id => (envelopeId = id)} />
+			</div>
+		</div>
 
 		<div class="keyboard">
 			{#each keyboardDef as keyboardRow}
@@ -147,6 +188,20 @@
 	.dollars .big {
 		font-size: 70px;
 		padding: 0 5px;
+	}
+
+	.allocate {
+		display: flex;
+		padding: 0 16px;
+	}
+	.allocate .account-spacer {
+		width: 16px;
+	}
+	.allocate .account {
+		flex-grow: 1;
+		flex-basis: 40px;
+		flex-shrink: 1;
+		min-width: 0;
 	}
 
 	.keyboard {

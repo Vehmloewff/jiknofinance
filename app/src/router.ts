@@ -1,22 +1,7 @@
 import { writable } from 'svelte/store'
 
-export const overlays = writable<{ name: string; params: any }[]>([])
 export const state = writable('new-user')
 export const params = writable<any>({})
-
-export function pushOverlay(name: string, params: any) {
-	overlays.update($overlays => {
-		$overlays.push({ name, params })
-		return $overlays
-	})
-}
-
-export function popOverlay() {
-	overlays.update($overlays => {
-		$overlays.pop()
-		return $overlays
-	})
-}
 
 export function go(stateName: string, stateParams?: any) {
 	state.set(stateName)

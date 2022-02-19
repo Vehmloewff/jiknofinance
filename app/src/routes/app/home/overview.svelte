@@ -6,7 +6,8 @@
 	import ListItem from '../../../components/ListItem.svelte'
 	import PageView from '../../../components/PageView.svelte'
 	import Text from '../../../components/Text.svelte'
-	import { go, pushOverlay } from '../../../router'
+	import { createOverlay, transactionOverlay } from '../../../overlays/mod'
+	import { go } from '../../../router'
 	import { display } from '../../../services/money'
 	import AccountPreview from '../.helpers/AccountPreview.svelte'
 
@@ -43,7 +44,7 @@
 		{
 			name: 'Create',
 			icon: 'outline::plus',
-			action: () => pushOverlay('create', {}),
+			action: () => createOverlay.run(null),
 		},
 	]
 </script>
@@ -68,7 +69,7 @@
 			<List>
 				{#each $unallocatedExpenses as transaction}
 					<ListItem
-						onSelect={() => pushOverlay('transaction', transaction.id)}
+						onSelect={() => transactionOverlay.run({ id: transaction.id })}
 						title={transaction.title || 'no title'}
 						discreetTitle={!transaction.title}
 						description="Unallocated"
