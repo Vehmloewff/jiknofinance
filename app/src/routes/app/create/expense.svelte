@@ -8,7 +8,7 @@
 	import { addCommas } from '../../../services/money'
 	import Icon from '../../../components/Icon.svelte'
 
-	export let showOverlay = Capacitor.isNativePlatform()
+	export let showOverlay = true //Capacitor.isNativePlatform()
 
 	let name = ''
 	let amount = '0.00'
@@ -60,6 +60,8 @@
 <PageView title="New Expense">
 	<div class="container expense">
 		<div class="fields" class:blur={showOverlay}>
+			<div class="image" style="background-image: url('/picture-image.png')" />
+
 			<div class="spacer" />
 
 			<div class="first-row">
@@ -90,6 +92,24 @@
 			</div>
 
 			<div class="spacer" />
+
+			<div class="allocate">
+				<Button fullWidth onPressed={allocate}>
+					<div class="allocate-icon-row">
+						<div class="allocate-column">
+							<Text content="Set Location" nowrap />
+							{#each envelopeBreakdown as breakdown}
+								<Text content={breakdown.name} style="sub-body" />
+							{:else}
+								<Text content="no location chosen" style="sub-body" nowrap />
+							{/each}
+						</div>
+						<Icon name="solid::chevron-down" />
+					</div>
+				</Button>
+			</div>
+
+			<div class="spacer" />
 			<div class="spacer" />
 
 			<Text content="Title" style="subheader" />
@@ -104,6 +124,7 @@
 				</Button>
 			</div>
 
+			<div class="spacer" />
 			<div class="spacer" />
 		</div>
 
@@ -132,6 +153,16 @@
 		filter: blur(var(--glass-blur));
 	}
 
+	.image {
+		width: 100px;
+		height: 100px;
+		border-radius: 8px;
+		background-position: center;
+		background-repeat: no-repeat;
+		background-size: cover;
+		margin: auto;
+	}
+
 	.first-row {
 		display: flex;
 		flex-direction: column;
@@ -154,7 +185,7 @@
 		height: 16px;
 	}
 
-	.allocate {
+	.first-row .allocate {
 		flex-grow: 1;
 		flex-shrink: 1;
 		min-width: 0;
