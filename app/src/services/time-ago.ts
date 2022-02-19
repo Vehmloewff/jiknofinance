@@ -15,7 +15,7 @@ const MONTH_NAMES = [
 
 function getClockHours(hours: number) {
 	if (hours === 0) return 12
-	if (hours > 12) hours - 12
+	if (hours > 12) return hours - 12
 
 	return hours
 }

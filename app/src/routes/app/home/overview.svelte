@@ -33,17 +33,17 @@
 		{
 			name: 'Trends',
 			icon: 'outline::chart-square-bar',
-			state: 'app.home.trends',
+			action: () => go('app.home.trends'),
 		},
 		{
 			name: 'Transactions',
 			icon: 'outline::cash',
-			state: 'app.home.transactions',
+			action: () => go('app.home.transactions'),
 		},
 		{
 			name: 'Create',
 			icon: 'outline::plus',
-			state: 'app.create.expense',
+			action: () => pushOverlay('create', {}),
 		},
 	]
 </script>
@@ -97,7 +97,7 @@
 
 		<div class="shortcuts">
 			{#each shortcuts as shortcut}
-				<div class="shortcut" on:click={() => go(shortcut.state)}>
+				<div class="shortcut" on:click={shortcut.action}>
 					<Icon name={shortcut.icon} size={35} decoration="action" />
 
 					<div class="tiny-spacer" />

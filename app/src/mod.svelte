@@ -8,6 +8,7 @@
 	import NoState from './no-state.svelte'
 	import PageView from './components/PageView.svelte'
 	import Transaction from './overlays/transaction.svelte'
+	import Create from './overlays/create.svelte'
 
 	$: {
 		if ($user.isGuest) {
@@ -41,6 +42,8 @@
 {#each $overlays as overlay}
 	{#if overlay.name === 'transaction'}
 		<Transaction id={overlay.params} />
+	{:else if overlay.name === 'create'}
+		<Create />
 	{/if}
 {/each}
 
