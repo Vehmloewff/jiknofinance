@@ -6,7 +6,6 @@
 	import Overlay from '../components/Overlay.svelte'
 	import Text from '../components/Text.svelte'
 	import { addCommas } from '../services/money'
-	import Breakdown from './.helpers/Breakdown.svelte'
 	import { createOverlay } from './mod'
 
 	let amountString = '000'
