@@ -1,4 +1,4 @@
-import { Context, RealUser, Model } from './deps.ts'
+import { Context, RealUser, Model, UserError } from './deps.ts'
 
 export function makeAppLink(clientId: string, state: string, params: Record<string, string>, origin?: string | null) {
 	const linkTool = clientIsMobileApp(clientId) ? 'app' : 'web'
@@ -40,7 +40,7 @@ export function makeIncomeTypeId() {
 
 export async function getRealUser(context: Context): Promise<RealUser> {
 	const user = await context.getUser()
-	if (!user.isReal) throw new Error('Only authenticated users are authorized to use this method')
+	if (!user.isReal) throw new UserError('Only authenticated users are authorized to use this method')
 
 	return user
 }

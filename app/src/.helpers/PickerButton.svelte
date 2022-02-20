@@ -5,12 +5,13 @@
 
 	export let onPressed: (() => void) | null = null
 	export let text: string
+	export let discreet = false
 </script>
 
 <Button {onPressed} fullWidth>
 	<div class="dropdown">
-		<div class="text align-center">
-			<Text content={text} nowrap />
+		<div class="text align-center" class:discreet>
+			<Text content={text} nowrap style={discreet ? 'sub-body' : 'body'} />
 		</div>
 
 		<Icon name="solid::chevron-down" />
@@ -26,5 +27,8 @@
 		min-width: 0;
 		flex-shrink: 1;
 		flex-grow: 1;
+	}
+	.text.discreet {
+		font-style: italic;
 	}
 </style>

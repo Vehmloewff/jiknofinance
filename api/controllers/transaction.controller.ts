@@ -33,7 +33,7 @@ export async function getLatestTransactions(
 		...fluctuateTransactions.map(transaction => ({ type: 'income', transaction })),
 	]
 
-	return joinedTransactions.sort((a, b) => a.transaction.date - b.transaction.date).slice(0, params.length)
+	return joinedTransactions.sort((a, b) => b.transaction.date - a.transaction.date).slice(0, params.length)
 }
 
 export async function getTransaction(context: Context, id: string): Promise<TransferTransaction | FluctuateTransaction> {

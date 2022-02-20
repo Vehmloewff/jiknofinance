@@ -8,7 +8,8 @@
 	export let overrideWithIncomeType = false
 	export let onPick: (id: string) => void | null = null
 
-	let label = isEnvelope ? (overrideWithIncomeType ? 'Income Type' : 'Envelope') : 'Location'
+	let label = isEnvelope ? (overrideWithIncomeType ? 'Income Type' : 'Choose an Envelope') : 'Location'
+	let optionSelected = false
 
 	if (!isEnvelope) {
 		controllers.locations.getDefaultExpenseLocation().then(id => {
@@ -16,6 +17,7 @@
 
 			controllers.user.getAccountName(id).then(name => (label = name))
 			if (onPick) onPick(id)
+			optionSelected = true
 		})
 	}
 
@@ -24,8 +26,10 @@
 			if (!res) return
 
 			label = res.name
+			if (onPick) onPick(res.id)
+			optionSelected = true
 		})
 	}
 </script>
 
-<PickerButton text={label} onPressed={onPick ? onPressed : null} />
+<PickerButton text={label} onPressed={onPick ? onPressed : null} discreet={!optionSelected} />

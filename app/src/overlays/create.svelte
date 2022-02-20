@@ -6,6 +6,7 @@
 	import Overlay from '../components/Overlay.svelte'
 	import Text from '../components/Text.svelte'
 	import { addCommas } from '../services/money'
+	import Breakdown from './.helpers/Breakdown.svelte'
 	import { createOverlay } from './mod'
 
 	let amountString = '000'
@@ -13,12 +14,13 @@
 	$: centsString = amountString.slice(-2)
 
 	let loading = false
-	$: invalid = amount === 0 || loading
 
 	let type: 'income' | 'expense' = 'expense'
 	$: amount = parseFloat(`${dollarsString}.${centsString}`)
 	let envelopeId: null | string = null
 	let locationId: null | string = null
+
+	$: invalid = amount === 0 || loading || !locationId
 
 	function addZeros(value: string, max: number) {
 		if (value.length >= max) return value
@@ -31,7 +33,6 @@
 	}
 
 	function append(number: string) {
-		console.log(number)
 		amountString = addZeros(stripLeadingZeros(amountString) + number, 3)
 	}
 
@@ -46,11 +47,13 @@
 			await controllers.transaction.createFluctuateTransaction({
 				amount,
 				date: Date.now(),
-				envelopeBreakdown: [],
-				locationBreakdown: [],
+				envelopeBreakdown: envelopeId ? [{ amount, id: envelopeId }] : [],
+				locationBreakdown: locationId ? [{ amount, id: locationId }] : [],
 				title: null,
 				type,
 			})
+
+			createOverlay.close(null)
 		} catch (e) {
 			// TODO an elegant snackbar to display this error
 			alert(`Failed to create transaction: ${e.message}`)
@@ -91,6 +94,7 @@
 	boldActionButton
 	actionButtonDisabled={invalid}
 	onBackButtonPressed={() => createOverlay.close(null)}
+	onActionButtonPressed={() => save()}
 >
 	<div class="create-container">
 		<div class="spacer" />
@@ -120,7 +124,7 @@
 			</div>
 			<div class="account-spacer" />
 			<div class="account">
-				<AccountPicker isEnvelope={false} onPick={id => (envelopeId = id)} />
+				<AccountPicker isEnvelope={false} onPick={id => (locationId = id)} />
 			</div>
 		</div>
 
