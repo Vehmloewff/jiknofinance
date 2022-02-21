@@ -14,7 +14,7 @@
 	<Loader />
 
 	<div class="help" class:visible={showHelpMessage}>
-		<Text content="We're having troubble connecting to the internet" style="sub-body" />
+		<Text content="We're having trouble connecting to the internet" style="sub-body" />
 	</div>
 </div>
 

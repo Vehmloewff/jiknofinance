@@ -10,7 +10,7 @@
 </script>
 
 <PageView
-	backTo={{ name: 'Back', state: 'app.accounts.account', params: { isEnvelope } }}
+	backTo={{ name: 'Back', state: 'app.accounts.account', params: { isEnvelope, account } }}
 	title="{accountDisplayTitle(account.name)} Settings"
 >
 	<Center>

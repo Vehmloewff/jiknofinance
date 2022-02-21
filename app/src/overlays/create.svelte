@@ -6,13 +6,16 @@
 	import Overlay from '../components/Overlay.svelte'
 	import Text from '../components/Text.svelte'
 	import { addCommas } from '../services/money'
+	import NamePrompt from './.helpers/NamePrompt.svelte'
 	import { createOverlay } from './mod'
 
 	let amountString = '000'
 	$: dollarsString = addCommas(amountString.slice(0, -2))
 	$: centsString = amountString.slice(-2)
+	let name = ''
 
 	let loading = false
+	let prompt: 'name' | 'photo' | null = null
 
 	let type: 'income' | 'expense' = 'expense'
 	$: amount = parseFloat(`${dollarsString}.${centsString}`)
@@ -40,15 +43,13 @@
 	}
 
 	async function save() {
-		loading = true
-
 		try {
 			await controllers.transaction.createFluctuateTransaction({
 				amount,
 				date: Date.now(),
 				envelopeBreakdown: envelopeId ? [{ amount, id: envelopeId }] : [],
 				locationBreakdown: locationId ? [{ amount, id: locationId }] : [],
-				title: null,
+				title: name || null,
 				type,
 			})
 
@@ -81,7 +82,7 @@
 		[
 			{ text: '0', action: () => append('0') },
 			{ icon: 'solid::backspace', action: () => pop() },
-			{ text: 'Save', action: () => save(), disabledIfInvalid: true, small: true, primary: true },
+			{ text: 'Next', action: () => (prompt = 'name'), disabledIfInvalid: true, small: true, primary: true },
 		],
 	]
 </script>
@@ -95,7 +96,7 @@
 	onBackButtonPressed={() => createOverlay.close(null)}
 	onActionButtonPressed={() => save()}
 >
-	<div class="create-container">
+	<div class="create-container" class:blur={!!prompt}>
 		<div class="spacer" />
 
 		<div class="switch-bar">
@@ -150,6 +151,12 @@
 			{/each}
 		</div>
 	</div>
+
+	{#if prompt === 'name'}
+		<div class="prompt-container">
+			<NamePrompt onDone={save} bind:name />
+		</div>
+	{/if}
 </Overlay>
 
 <style>
@@ -157,6 +164,9 @@
 		display: flex;
 		flex-direction: column;
 		height: 100%;
+	}
+	.create-container.blur {
+		filter: blur(20px);
 	}
 
 	.switch-bar {
@@ -232,8 +242,15 @@
 		color: var(--on-action);
 	}
 
-	.disabled {
-		filter: grayscale(1);
-		opacity: 0.5;
+	.prompt-container {
+		position: absolute;
+		top: 0;
+		right: 0;
+		left: 0;
+		bottom: 0;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		flex-direction: column;
 	}
 </style>

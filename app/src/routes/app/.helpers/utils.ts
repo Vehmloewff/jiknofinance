@@ -12,3 +12,7 @@ export function accountsSorter(envelopes: Envelope[]): Envelope[] {
 		return 0
 	})
 }
+
+export function dateSorter<T extends { date: number }>(transactions: T[]): T[] {
+	return transactions.sort((a, b) => b.date - a.date)
+}

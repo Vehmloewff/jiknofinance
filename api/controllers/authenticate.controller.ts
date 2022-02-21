@@ -59,9 +59,9 @@ export async function verifyOtp(context: Context, otp: string) {
 	const existingUserId = await inferUserIdFromEmail(email)
 	confirmationOtps.delete(otp)
 
-	if (!existingUserId) {
-		const userId = makeUserId()
+	const userId = existingUserId || makeUserId()
 
+	if (!existingUserId) {
 		const titheEnvelope: Envelope = {
 			id: makeEnvelopeId(),
 			balance: 0,
@@ -84,7 +84,7 @@ export async function verifyOtp(context: Context, otp: string) {
 		await UserInfo.insert(info)
 	}
 
-	assignClientToUser(user.clientId, email)
+	assignClientToUser(user.clientId, userId)
 }
 
 export async function logout(context: Context) {

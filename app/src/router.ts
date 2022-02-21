@@ -6,10 +6,7 @@ export const params = writable<any>({})
 export function go(stateName: string, stateParams?: any) {
 	state.set(stateName)
 
-	if (stateParams)
-		params.update((params: any) => {
-			return { ...params, ...stateParams }
-		})
+	params.set(stateParams || {})
 }
 
 export function isSameRoute(name: string, state: string) {

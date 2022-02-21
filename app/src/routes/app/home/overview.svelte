@@ -10,6 +10,7 @@
 	import { go } from '../../../router'
 	import { display } from '../../../services/money'
 	import AccountPreview from '../.helpers/AccountPreview.svelte'
+	import { dateSorter } from '../.helpers/utils'
 
 	const unallocatedExpenses = controllers.user.$unallocatedExpenses
 	const pinnedEnvelopes = controllers.user.$pinnedEnvelopes
@@ -67,7 +68,7 @@
 
 		{#if $unallocatedExpenses.length}
 			<List>
-				{#each $unallocatedExpenses as transaction}
+				{#each dateSorter($unallocatedExpenses) as transaction}
 					<ListItem
 						onSelect={() => transactionOverlay.run({ id: transaction.id })}
 						title={transaction.title || 'no title'}

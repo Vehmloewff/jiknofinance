@@ -9,7 +9,7 @@
 	import { safeAreaTop } from '../../../safe-area'
 	import { display } from '../../../services/money'
 	import { getDecoration, getIcon, getLatestTransactions } from '../../../services/transactions'
-	import { accountDisplayTitle } from '../.helpers/utils'
+	import { accountDisplayTitle, dateSorter } from '../.helpers/utils'
 	import { makeBackground, makeCoverBackground } from '../.helpers/style'
 	import { transactionOverlay } from '../../../overlays/mod'
 
@@ -21,7 +21,7 @@
 	title={accountDisplayTitle(account.name)}
 	backTo={{
 		name: $params.backTo === 'app.home.overview' ? 'Home' : isEnvelope ? 'Envelopes' : 'Locations',
-		state: $params.backTo,
+		state: $params.backTo || 'app.accounts.overview',
 		params: { isEnvelope },
 	}}
 	showTitleAfter={55}
@@ -37,7 +37,7 @@
 	<div class="splash" style="background: {makeBackground(account.color)}">
 		<Text content={accountDisplayTitle(account.name)} style="header" />
 		<div class="spacer" />
-		<Text content="${account.balance}" style="large" />
+		<Text content={display(account.balance)} style="large" />
 	</div>
 
 	{#await getLatestTransactions(account.id, account.balance, isEnvelope)}
@@ -49,13 +49,13 @@
 		{#if transactions.length}
 			<div class="container">
 				<List>
-					{#each transactions as transaction}
+					{#each dateSorter(transactions) as transaction}
 						<ListItem
 							title={transaction.title || 'no title'}
 							discreetTitle={!transaction.title}
 							onSelect={() => transactionOverlay.run({ id: transaction.id })}
 							showArrow
-							arrowText="-{display(transaction.amount)}"
+							arrowText="{transaction.type === 'expense' ? '-' : ''}{display(transaction.amount)}"
 							icon={getIcon(transaction.type)}
 							iconDecoration={getDecoration(transaction.type)}
 							description="Balance: {display(transaction.currentBalance)}"
