@@ -158,6 +158,57 @@ export async function createTransferTransaction(
 	return transactionId
 }
 
+export async function nameTransaction(context: Context, params: { id: string; name: string }) {
+	const user = await getRealUser(context)
+
+	const transaction = (await FluctuateTransaction.get(params.id)) || (await TransferTransaction.get(params.id))
+	if (!transaction) throw new UserError(`Transaction ${params.id} does not exist`)
+
+	if (user.userId !== transaction.userId) throw new UserError(`Transaction ${params.id} does not belong to you`)
+
+	transaction.title = params.name
+
+	if (transaction.type === 'income' || transaction.type === 'expense') await FluctuateTransaction.update(transaction)
+	else if (transaction.type === 'envelope' || transaction.type === 'location') await TransferTransaction.update(transaction)
+}
+
+export async function allocateExpenseTransaction(context: Context, params: { id: string; envelopeId: string }) {
+	const user = await getRealUser(context)
+
+	const transaction = await FluctuateTransaction.get(params.id)
+	if (!transaction) throw new UserError(`Transaction ${params.id} does not exist`)
+
+	if (user.userId !== transaction.userId) throw new UserError(`Transaction ${params.id} does not belong to you`)
+	if (transaction.type !== 'expense') throw new UserError(`Transaction ${transaction.id} is not an expense transaction`)
+
+	// Make sure the envelope is owned and update the balance
+	{
+		const envelope = await Envelope.get(params.envelopeId)
+		if (!envelope) throw new UserError(`Envelope ${params.envelopeId} does not exist`)
+		if (envelope.userId !== user.userId) throw new UserError(`Envelope ${params.envelopeId} does not belong to you`)
+
+		envelope.balance = envelope.balance - transaction.amount
+		await Envelope.update(envelope)
+	}
+
+	// Remove the expense from the `unallocatedExpenseTransactions` property
+	{
+		const info = await sureGet(UserInfo, user.userId)
+
+		const index = info.unallocatedExpenseTransactions.indexOf(transaction.id)
+		if (index === -1) throw new UserError(`Transaction ${transaction.id} is not unallocated`)
+
+		info.unallocatedExpenseTransactions.splice(index, 1)
+		await UserInfo.update(info)
+	}
+
+	// Update the transaction
+	{
+		transaction.envelopeBreakdown = [{ id: params.envelopeId, amount: transaction.amount }]
+		await FluctuateTransaction.update(transaction)
+	}
+}
+
 function isInBreakdown(id: string | null, breakdown: { id: string }[]) {
 	if (!id) return null
 

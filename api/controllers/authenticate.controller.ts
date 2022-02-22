@@ -68,6 +68,7 @@ export async function verifyOtp(context: Context, otp: string) {
 			name: '_builtin.tithe',
 			icon: null,
 			color: null,
+			userId,
 		}
 
 		const info: UserInfo = {

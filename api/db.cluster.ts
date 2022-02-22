@@ -47,6 +47,7 @@ export interface Envelope {
 	balance: number
 	icon: string | null
 	color: string | null
+	userId: string
 }
 
 export const Envelope = await registerModel<Envelope>('Envelope')
@@ -58,6 +59,7 @@ export interface Location {
 	isDefaultExpenseLocation: boolean
 	icon: string | null
 	color: string | null
+	userId: string
 }
 
 export const Location = await registerModel<Location>('Location')

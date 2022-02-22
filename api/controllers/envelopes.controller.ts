@@ -33,6 +33,7 @@ export async function createNewEnvelope(context: Context, name: string): Promise
 		color: null,
 		icon: null,
 		name,
+		userId: user.userId,
 	})
 
 	return id

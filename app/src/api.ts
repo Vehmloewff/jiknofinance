@@ -425,13 +425,13 @@ export const controllers = {
 				returnType: 'void',
 			})
 		},
-		async allocateTransaction(params: {
+		async allocateExpenseTransaction(params: {
 					id: string
 					envelopeId: string
 				}): Promise<void> {
 			return await conventionalMethod({
 				controllerName: 'transaction',
-				methodName: 'allocateTransaction',
+				methodName: 'allocateExpenseTransaction',
 				params: params,
 				returnType: 'void',
 			})

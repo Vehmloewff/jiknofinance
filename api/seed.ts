@@ -4,6 +4,8 @@ import { makeEnvelopeId, makeTransactionId, makeLocationId } from './utils.ts'
 export async function seed() {
 	if (await UserInfo.has('demo')) return
 
+	const userId = 'demo'
+
 	//
 	// Envelopes
 	//
@@ -13,6 +15,7 @@ export async function seed() {
 		name: '_builtin.tithe',
 		icon: null,
 		color: null,
+		userId,
 	}
 
 	const groceries: Envelope = {
@@ -21,6 +24,7 @@ export async function seed() {
 		name: 'Groceries',
 		color: null,
 		icon: null,
+		userId,
 	}
 
 	const bills: Envelope = {
@@ -29,6 +33,7 @@ export async function seed() {
 		name: 'Bills',
 		color: null,
 		icon: null,
+		userId,
 	}
 
 	const familyFun: Envelope = {
@@ -37,6 +42,7 @@ export async function seed() {
 		name: 'Family Fun',
 		color: null,
 		icon: null,
+		userId,
 	}
 
 	const emergencyFund: Envelope = {
@@ -45,6 +51,7 @@ export async function seed() {
 		name: 'Emergency Fund',
 		color: null,
 		icon: null,
+		userId,
 	}
 
 	const gifts: Envelope = {
@@ -53,6 +60,7 @@ export async function seed() {
 		name: 'Gifts',
 		color: null,
 		icon: null,
+		userId,
 	}
 
 	const outToEat: Envelope = {
@@ -61,6 +69,7 @@ export async function seed() {
 		name: 'Out to Eat',
 		color: null,
 		icon: null,
+		userId,
 	}
 
 	const savings: Envelope = {
@@ -69,6 +78,7 @@ export async function seed() {
 		name: 'Savings',
 		color: null,
 		icon: null,
+		userId,
 	}
 
 	const jakesSpending: Envelope = {
@@ -77,6 +87,7 @@ export async function seed() {
 		name: "Jake's Spending",
 		color: null,
 		icon: null,
+		userId,
 	}
 
 	const sarahSpending: Envelope = {
@@ -85,6 +96,7 @@ export async function seed() {
 		name: "Sarah's Spending",
 		color: null,
 		icon: null,
+		userId,
 	}
 
 	const homeImprovement: Envelope = {
@@ -93,6 +105,7 @@ export async function seed() {
 		name: 'Home Improvement',
 		color: null,
 		icon: null,
+		userId,
 	}
 
 	const envelopes = [
@@ -128,6 +141,7 @@ export async function seed() {
 		icon: null,
 		isDefaultExpenseLocation: false,
 		name: 'Cash Stash',
+		userId,
 	}
 
 	const wallet: Location = {
@@ -137,6 +151,7 @@ export async function seed() {
 		icon: null,
 		isDefaultExpenseLocation: false,
 		name: 'Wallet',
+		userId,
 	}
 
 	const bankAccount: Location = {
@@ -146,6 +161,7 @@ export async function seed() {
 		icon: null,
 		isDefaultExpenseLocation: true,
 		name: 'Bank Account',
+		userId,
 	}
 
 	const locations = [cashStash, wallet, bankAccount]
@@ -170,7 +186,7 @@ export async function seed() {
 		locationBreakdown: [{ amount: 500, id: bankAccount.id }],
 		title: 'Paycheck',
 		type: 'income',
-		userId: 'demo',
+		userId,
 	})
 
 	await FluctuateTransaction.insert({
@@ -181,7 +197,7 @@ export async function seed() {
 		locationBreakdown: [{ amount: 2.45, id: bankAccount.id }],
 		title: 'Coffee at OnCue',
 		type: 'expense',
-		userId: 'demo',
+		userId,
 	})
 
 	await FluctuateTransaction.insert({
@@ -192,7 +208,7 @@ export async function seed() {
 		locationBreakdown: [{ amount: 46.56, id: bankAccount.id }],
 		title: 'Groceries For Dinner',
 		type: 'expense',
-		userId: 'demo',
+		userId,
 	})
 
 	await FluctuateTransaction.insert({
@@ -203,7 +219,7 @@ export async function seed() {
 		locationBreakdown: [{ amount: 24.64, id: bankAccount.id }],
 		title: 'Water Bill',
 		type: 'expense',
-		userId: 'demo',
+		userId,
 	})
 
 	await FluctuateTransaction.insert({
@@ -214,7 +230,7 @@ export async function seed() {
 		locationBreakdown: [{ amount: 10.45, id: bankAccount.id }],
 		title: 'Roses for Sarah',
 		type: 'expense',
-		userId: 'demo',
+		userId,
 	})
 
 	await FluctuateTransaction.insert({
@@ -225,7 +241,7 @@ export async function seed() {
 		locationBreakdown: [{ amount: 6.18, id: bankAccount.id }],
 		title: 'Protein bars for kids',
 		type: 'expense',
-		userId: 'demo',
+		userId,
 	})
 
 	//
@@ -242,7 +258,7 @@ export async function seed() {
 		locationBreakdown: [{ amount: 30.87, id: bankAccount.id }],
 		title: null,
 		type: 'expense',
-		userId: 'demo',
+		userId,
 	})
 	await FluctuateTransaction.insert({
 		amount: 104.93,
@@ -252,7 +268,7 @@ export async function seed() {
 		locationBreakdown: [{ amount: 104.93, id: bankAccount.id }],
 		title: 'Groceries At Walmart',
 		type: 'expense',
-		userId: 'demo',
+		userId,
 	})
 	await FluctuateTransaction.insert({
 		amount: 30.87,
@@ -262,7 +278,7 @@ export async function seed() {
 		locationBreakdown: [{ amount: 30.87, id: bankAccount.id }],
 		title: 'Gift for Louise',
 		type: 'expense',
-		userId: 'demo',
+		userId,
 	})
 
 	//

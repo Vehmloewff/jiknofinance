@@ -37,6 +37,7 @@ export async function createNewLocation(context: Context, name: string): Promise
 		icon: null,
 		isDefaultExpenseLocation: info.locationIds.length === 0,
 		name,
+		userId: user.userId,
 	})
 
 	return id
