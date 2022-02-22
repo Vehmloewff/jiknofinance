@@ -414,6 +414,28 @@ export const controllers = {
 				returnType: 'void',
 			})
 		},
+		async nameTransaction(params: {
+					id: string
+					name: string
+				}): Promise<void> {
+			return await conventionalMethod({
+				controllerName: 'transaction',
+				methodName: 'nameTransaction',
+				params: params,
+				returnType: 'void',
+			})
+		},
+		async allocateTransaction(params: {
+					id: string
+					envelopeId: string
+				}): Promise<void> {
+			return await conventionalMethod({
+				controllerName: 'transaction',
+				methodName: 'allocateTransaction',
+				params: params,
+				returnType: 'void',
+			})
+		},
 	},
 	authenticate: {
 		async sendConfirmationEmail(params: string): Promise<void> {
@@ -607,6 +629,7 @@ export interface Envelope {
 	balance: number
 	icon: string | null
 	color: string | null
+	userId: string
 }
 
 export interface Location {
@@ -616,6 +639,7 @@ export interface Location {
 	isDefaultExpenseLocation: boolean
 	icon: string | null
 	color: string | null
+	userId: string
 }
 
 export interface FluctuateTransaction {
