@@ -20,7 +20,7 @@
 
 	<div class="spacer" />
 
-	<input type="text" bind:this={textField} bind:value={name} enterkeyhint="done" />
+	<input type="text" bind:this={textField} bind:value={name} enterkeyhint="done" placeholder="Roses for Sarah" />
 
 	<div class="spacer" />
 

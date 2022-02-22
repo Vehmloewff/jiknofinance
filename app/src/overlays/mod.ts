@@ -2,6 +2,7 @@ import { registerOverlay } from '../overlay'
 import Transaction from './transaction.svelte'
 import Create from './create.svelte'
 import AccountChoice from './account-choice.svelte'
+import NewAccount from './new-account.svelte'
 
 export interface TransactionOverlayParams {
 	id: string
@@ -22,3 +23,9 @@ export interface AccountChoiceOverlayResult {
 }
 
 export const accountChoiceOverlay = registerOverlay<AccountChoiceOverlayParams, AccountChoiceOverlayResult | null>(AccountChoice)
+
+export interface NewAccountOverlayParams {
+	isEnvelope: boolean
+}
+
+export const newAccountOverlay = registerOverlay<NewAccountOverlayParams, null>(NewAccount)

@@ -40,6 +40,7 @@
 
 	function isActive(item: typeof pages[0], state: string, params: any) {
 		if (!isSameRoute(item.rootState, state)) return false
+		if (!item.params) return true
 
 		return params.isEnvelope === item.params?.isEnvelope
 	}

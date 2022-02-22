@@ -14,6 +14,7 @@
 
 	export let title: string | null = null
 	export let allowScroll = false
+	export let center = false
 
 	let windowHeight: number
 	let showBackground = false
@@ -34,7 +35,7 @@
 
 		<div class="header-space" />
 
-		<div class="content">
+		<div class="content" class:center>
 			<slot />
 		</div>
 
@@ -95,6 +96,12 @@
 	.content {
 		flex-grow: 1;
 		position: relative;
+	}
+	.content.center {
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
 	}
 
 	.header {

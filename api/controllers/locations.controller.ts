@@ -25,14 +25,17 @@ export async function createNewLocation(context: Context, name: string): Promise
 	const user = await getRealUser(context)
 
 	const id = makeLocationId()
-	const { locationIds } = await sureGet(UserInfo, user.userId)
+	const info = await sureGet(UserInfo, user.userId)
+	info.locationIds.push(id)
+	UserInfo.update(info)
 
+	// call this last so that when $locations updates, the new locationIds userInfo property is set
 	await Location.insert({
 		id,
 		balance: 0,
 		color: null,
 		icon: null,
-		isDefaultExpenseLocation: locationIds.length === 0,
+		isDefaultExpenseLocation: info.locationIds.length === 0,
 		name,
 	})
 

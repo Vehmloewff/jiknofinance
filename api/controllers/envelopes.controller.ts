@@ -18,10 +18,15 @@ export function $envelopes(connection: Connection): PluralConnection<Envelope> {
 }
 
 export async function createNewEnvelope(context: Context, name: string): Promise<string> {
-	await getRealUser(context)
+	const user = await getRealUser(context)
 
 	const id = makeEnvelopeId()
 
+	const info = await sureGet(UserInfo, user.userId)
+	info.envelopeIds.push(id)
+	UserInfo.update(info)
+
+	// call this last so that when $envelopes updates, the new envelopeIds userInfo property is set
 	await Envelope.insert({
 		id,
 		balance: 0,

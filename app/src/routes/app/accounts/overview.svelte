@@ -6,6 +6,7 @@
 	import Text from '../../../components/Text.svelte'
 	import { accountsSorter } from '../.helpers/utils'
 	import AccountPreview from '../.helpers/AccountPreview.svelte'
+	import { newAccountOverlay } from '../../../overlays/mod'
 
 	export let isEnvelope: boolean
 
@@ -14,7 +15,7 @@
 
 <PageView
 	title={isEnvelope ? 'Envelopes' : 'Locations'}
-	trailingIcon={{ name: 'solid::plus-circle', onSelection: () => console.log('TODO') }}
+	trailingIcon={{ name: 'solid::plus-circle', onSelection: () => newAccountOverlay.run({ isEnvelope }) }}
 	allowScroll
 >
 	{#if accounts}

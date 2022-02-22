@@ -174,6 +174,7 @@
 		display: flex;
 		border-radius: 8px;
 		border: 1px solid var(--action);
+		overflow: hidden;
 	}
 	.switch-bar .item {
 		line-height: 34px;
