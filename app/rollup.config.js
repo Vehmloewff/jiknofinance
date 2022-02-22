@@ -6,6 +6,7 @@ import { terser } from 'rollup-plugin-terser'
 import sveltePreprocess from 'svelte-preprocess'
 import typescript from '@rollup/plugin-typescript'
 import css from 'rollup-plugin-css-only'
+import { basename } from 'path'
 
 const production = !process.env.ROLLUP_WATCH
 
@@ -26,6 +27,16 @@ function serve() {
 
 			process.on('SIGTERM', toExit)
 			process.on('exit', toExit)
+		},
+	}
+}
+
+function insertProdEnv() {
+	return {
+		transform(code, id) {
+			if (basename(id) !== 'env.ts') return
+
+			return code.replace("'dev'", "'prod'")
 		},
 	}
 }
@@ -64,6 +75,9 @@ export default {
 			sourceMap: !production,
 			inlineSources: !production,
 		}),
+
+		// If it is, notify the application is production mode is on
+		production && insertProdEnv(),
 
 		// In dev mode, call `npm run start` once
 		// the bundle has been generated
