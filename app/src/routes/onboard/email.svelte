@@ -28,10 +28,12 @@
 
 			if (email === 'demo') injectHeartbeat()
 
-			go('onboard.waiting')
+			go('onboard.waiting', { email })
 		} catch (e) {
 			error = e.message
 		}
+
+		loading = false
 	}
 
 	onMount(() => {

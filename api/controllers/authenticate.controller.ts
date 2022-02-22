@@ -41,8 +41,9 @@ export async function sendConfirmationEmail(context: Context, email: string) {
 	setTimeout(() => confirmationOtps.delete(otp), 60 * 1000 * 10)
 
 	await sendEmail({
-		content: makeConfirmationEmail(magicLink),
 		to: email,
+		from: 'finance@jikno.com',
+		text: makeConfirmationEmail(magicLink),
 		subject: 'Jikno Finance Email Confirmation Link',
 	})
 
