@@ -34,7 +34,7 @@
 		<div class="spacer-x" />
 
 		<div class="action">
-			<Button fullWidth large onPressed={name.length ? () => onDone() : null}>
+			<Button fullWidth large onPressed={name.length ? () => onDone() : null} primary>
 				<Text content="Save" />
 			</Button>
 		</div>

@@ -110,7 +110,7 @@
 
 		<div class="flex-gap" />
 
-		<div class="dollars">
+		<div class="dollars" class:income={type === 'income'} class:expense={type === 'expense'}>
 			<div class="little">$</div>
 			<div class="big">{dollarsString}</div>
 			<div class="little">{centsString}</div>
@@ -194,6 +194,12 @@
 		justify-content: center;
 		align-items: flex-start;
 		font-family: 'Rubik', sans-serif;
+	}
+	.dollars.income {
+		color: var(--clear);
+	}
+	.dollars.expense {
+		color: var(--danger);
 	}
 	.dollars .little {
 		padding-top: 10px;
