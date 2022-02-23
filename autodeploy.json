@@ -1,0 +1,12 @@
+{
+	"preDeploy": "cd app && yarn build",
+	"droplet": "finance.jikno.com",
+	"static": {
+		"dir": "app/public",
+		"domain": "finance.jikno.com"
+	},
+	"server": {
+		"dir": "api",
+		"domain": "api.finance.jikno.com"
+	}
+}
