@@ -1,9 +1,9 @@
 import { Context, RealUser, Model, UserError } from './deps.ts'
 
-export function makeAppLink(clientId: string, state: string, params: Record<string, string>, origin?: string | null) {
+export function makeAppLink(clientId: string, state: string, params: Record<string, string>) {
 	const linkTool = clientIsMobileApp(clientId) ? 'app' : 'web'
 
-	return `${origin || 'https://finance.jikno.com'}/link/${linkTool}/${makeLinkPath(state, params)}`
+	return `https://finance.jikno.com/link/${linkTool}/${makeLinkPath(state, params)}`
 }
 
 export function makeLinkPath(state: string, params: Record<string, string>) {

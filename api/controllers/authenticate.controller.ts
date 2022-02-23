@@ -33,7 +33,7 @@ export async function sendConfirmationEmail(context: Context, email: string) {
 	}
 
 	const otp = makeOtp()
-	const magicLink = makeAppLink(user.clientId, 'onboard.receive-otp', { otp }, context.request.headers.get('origin'))
+	const magicLink = makeAppLink(user.clientId, 'onboard.receive-otp', { otp })
 
 	confirmationOtps.set(otp, email)
 
